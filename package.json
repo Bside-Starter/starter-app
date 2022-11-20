@@ -3,8 +3,10 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "react-native run-android",
-    "ios": "react-native run-ios",
+    "android:dev": "react-native run-android --variant=developmentdebug",
+    "android:prod": "react-native run-android --variant=productionrelease",
+    "ios:dev": "react-native run-ios --scheme staterApp.dev",
+    "ios:prod": "react-native run-ios --scheme starterApp",
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"

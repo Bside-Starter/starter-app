@@ -1,6 +1,7 @@
 import React, {useRef} from 'react';
 import {Platform, StyleSheet, View} from 'react-native';
 import WebView from 'react-native-webview';
+import Config from 'react-native-config';
 
 const Main = () => {
   const mainWebviewRef = useRef<WebView>(null);
@@ -12,8 +13,8 @@ const Main = () => {
         source={{
           uri:
             Platform.OS === 'ios'
-              ? 'http://localhost:3000'
-              : 'http://10.0.2.2:3000',
+              ? (Config.WEBVIEW_URL_IOS as unknown as string)
+              : (Config.WEBVIEW_URL_ANDROID as unknown as string),
         }}
       />
     </View>

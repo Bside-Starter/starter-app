@@ -1,4 +1,5 @@
 apply plugin: "com.android.application"
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 
 import com.android.build.OutputFile
 import org.apache.tools.ant.taskdefs.condition.Os
@@ -81,6 +82,13 @@ import org.apache.tools.ant.taskdefs.condition.Os
 project.ext.react = [
     enableHermes: true,  // clean and rebuild if changing
 ]
+project.ext.envConfigFiles = [
+    productiondebug: ".env.production",
+    productionrelease: ".env.production",
+    developmentrelease: ".env.development",
+    developmentdebug: ".env.development",
+]
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 
 apply from: "../../node_modules/react-native/react.gradle"
 
@@ -230,6 +238,15 @@ android {
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
+    flavorDimensions "default"
+    productFlavors {
+        production {
+            manifestPlaceholders = [appName: "스타터"]
+        }
+        development {
+            manifestPlaceholders = [appName: "[DEV]스타터"]
+        }
+    }
 
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
@@ -253,6 +270,7 @@ dependencies {
 
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
+    implementation project(':react-native-config')
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 
