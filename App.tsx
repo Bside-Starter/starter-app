@@ -28,10 +28,22 @@ const App = () => {
 
   const handleOnMessage = async (event: WebViewMessageEvent) => {
     const webData = event.nativeEvent.data;
-    const type = JSON.parse(webData);
+    const {type} = JSON.parse(webData);
     switch (type) {
-      case WebViewMessageType.SESSION_CHECKED:
-        // 스플래시 off
+      // 웹뷰 준비 완료 후 이니셜라이즈 동작 시작
+      case WebViewMessageType.WEB_LOADED:
+        // 디바이스에 저장된 토큰을 통한 세션 체크
+        const storedToken = await AsyncStorage.getItem(AsyncKeys.AUTH_TOKEN);
+        sendMessage<AuthTokenPayload>(webviewRef, {
+          type: WebViewMessageType.SESSION_CHECK,
+          payload: {
+            token: storedToken,
+          },
+        });
+        break;
+      // 모든 웹 이니셜라이즈 동작이 끝난 후
+      case WebViewMessageType.INITIALIZED:
+        // TODO: 스플래시 스크린 off
         break;
       case WebViewMessageType.SIGN_IN:
         const {payload} = parseWebMessage<AuthTokenPayload>(webData);
@@ -44,15 +56,20 @@ const App = () => {
     }
   };
 
-  const handleEndLoading = async () => {
-    const token = await AsyncStorage.getItem(AsyncKeys.AUTH_TOKEN);
-    sendMessage<AuthTokenPayload>(webviewRef, {
-      type: WebViewMessageType.AUTH_TOKEN,
-      payload: {
-        token,
-      },
-    });
-  };
+  /*
+  Next.js의 프리렌더링 때문에 onLoadEnd가 생각대로 동작하지 않아서
+  WEB_LOADED 확인 후 이니셜라이즈 하는 방향으로 구현했습니다.
+  좋은 대안이 있으면 부탁드려요!
+  */
+  // const handleEndLoading = async () => {
+  //   const token = await AsyncStorage.getItem(AsyncKeys.AUTH_TOKEN);
+  //   sendMessage<AuthTokenPayload>(webviewRef, {
+  //     type: WebViewMessageType.AUTH_TOKEN,
+  //     payload: {
+  //       token,
+  //     },
+  //   });
+  // };
   return (
     <SafeAreaView>
       <StatusBar barStyle={'dark-content'} backgroundColor={'#ffffff'} />
@@ -62,7 +79,7 @@ const App = () => {
           originWhitelist={['*']}
           javaScriptEnabled
           onMessage={handleOnMessage}
-          onLoadEnd={handleEndLoading}
+          // onLoadEnd={handleEndLoading}
           source={{
             uri:
               Platform.OS === 'ios'
