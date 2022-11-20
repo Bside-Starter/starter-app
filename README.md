@@ -8,5 +8,9 @@ package manager: yarn
 3. cd ..
 
 - 메트로 서버: yarn start (--reset-cache 옵션 권장)
-- ios: yarn ios
-- android: yarn android
+- ios
+  - 개발: yarn ios:dev
+  - 운영: yarn ios:prod
+- android
+  - 개발: yarn android:dev
+  - 운영: yarn android:prod

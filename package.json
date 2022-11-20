@@ -5,13 +5,14 @@
   "scripts": {
     "android:dev": "react-native run-android --variant=developmentdebug",
     "android:prod": "react-native run-android --variant=productionrelease",
-    "ios:dev": "react-native run-ios --scheme staterApp.dev",
+    "ios:dev": "react-native run-ios --scheme starterApp.dev",
     "ios:prod": "react-native run-ios --scheme starterApp",
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.17.11",
     "react": "18.1.0",
     "react-native": "0.70.6",
     "react-native-config": "^1.4.11",
