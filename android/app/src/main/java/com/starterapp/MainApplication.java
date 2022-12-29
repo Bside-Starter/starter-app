@@ -2,6 +2,7 @@ package com.starterapp;
 
 import android.app.Application;
 import android.content.Context;
+import android.os.Bundle;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactInstanceManager;
@@ -13,6 +14,7 @@ import com.starterapp.newarchitecture.MainApplicationReactNativeHost;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
+import org.devio.rn.splashscreen.SplashScreenReactPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 

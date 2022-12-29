@@ -16,6 +16,7 @@
     "react": "18.1.0",
     "react-native": "0.70.6",
     "react-native-config": "^1.4.11",
+    "react-native-splash-screen": "^3.3.0",
     "react-native-webview": "^11.23.1"
   },
   "devDependencies": {

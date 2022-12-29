@@ -22,8 +22,11 @@ import WebView, {WebViewMessageEvent} from 'react-native-webview';
 import {AsyncKeys} from './src/constants';
 import {AuthTokenPayload, WebViewMessageType} from './src/types';
 import {parseWebMessage, sendMessage} from './src/utils';
+import {useInitialize} from './src/hooks/useInitialize';
 
 const App = () => {
+  useInitialize();
+
   const webviewRef = useRef<WebView>(null);
 
   const handleOnMessage = async (event: WebViewMessageEvent) => {
@@ -70,6 +73,7 @@ const App = () => {
   //     },
   //   });
   // };
+  // AsyncStorage.clear();
   return (
     <SafeAreaView>
       <StatusBar barStyle={'dark-content'} backgroundColor={'#ffffff'} />
