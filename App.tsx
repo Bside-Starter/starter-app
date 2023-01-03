@@ -9,44 +9,39 @@
  */
 
 import React, {useRef} from 'react';
-import {
-  Platform,
-  SafeAreaView,
-  StatusBar,
-  StyleSheet,
-  View,
-} from 'react-native';
+import {Platform, StatusBar, StyleSheet, View} from 'react-native';
 import Config from 'react-native-config';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import WebView, {WebViewMessageEvent} from 'react-native-webview';
 import {AsyncKeys} from './src/constants';
-import {AuthTokenPayload, WebViewMessageType} from './src/types';
+import {
+  AuthTokenPayload,
+  DeviceInfoPayload,
+  WebViewMessageType,
+} from './src/types';
 import {parseWebMessage, sendMessage} from './src/utils';
-import {useInitialize} from './src/hooks/useInitialize';
+import SplashScreen from 'react-native-splash-screen';
+import {getStatusBarHeight} from 'react-native-status-bar-height';
 
 const App = () => {
-  useInitialize();
-
   const webviewRef = useRef<WebView>(null);
 
   const handleOnMessage = async (event: WebViewMessageEvent) => {
     const webData = event.nativeEvent.data;
     const {type} = JSON.parse(webData);
     switch (type) {
-      // 웹뷰 준비 완료 후 이니셜라이즈 동작 시작
       case WebViewMessageType.WEB_LOADED:
-        // 디바이스에 저장된 토큰을 통한 세션 체크
-        const storedToken = await AsyncStorage.getItem(AsyncKeys.AUTH_TOKEN);
-        sendMessage<AuthTokenPayload>(webviewRef, {
-          type: WebViewMessageType.SESSION_CHECK,
+        sendMessage<DeviceInfoPayload>(webviewRef, {
+          type: WebViewMessageType.DEVICE_INFO,
           payload: {
-            token: storedToken,
+            platform: Platform.OS,
+            statusBarHeight: getStatusBarHeight(true),
           },
         });
         break;
       // 모든 웹 이니셜라이즈 동작이 끝난 후
       case WebViewMessageType.INITIALIZED:
-        // TODO: 스플래시 스크린 off
+        SplashScreen.hide();
         break;
       case WebViewMessageType.SIGN_IN:
         const {payload} = parseWebMessage<AuthTokenPayload>(webData);
@@ -73,10 +68,13 @@ const App = () => {
   //     },
   //   });
   // };
-  // AsyncStorage.clear();
+
+  // StatusBar.setBarStyle('light-content');
   return (
-    <SafeAreaView>
-      <StatusBar barStyle={'dark-content'} backgroundColor={'#ffffff'} />
+    <>
+      <StatusBar
+        barStyle={Platform.OS === 'ios' ? 'light-content' : 'dark-content'}
+      />
       <View style={styles.container}>
         <WebView
           ref={webviewRef}
@@ -92,7 +90,7 @@ const App = () => {
           }}
         />
       </View>
-    </SafeAreaView>
+    </>
   );
 };
 
