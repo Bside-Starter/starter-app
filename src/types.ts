@@ -1,11 +1,13 @@
 import {Platform} from 'react-native';
+import {SocialType} from './apis/social';
 
 export enum WebViewMessageType {
   WEB_LOADED = 'WEB_LOADED',
   INITIALIZED = 'INITIALIZED',
   AUTH_TOKEN = 'AUTH_TOKEN',
   SESSION_CHECK = 'SESSION_CHECK',
-  SIGN_IN = 'SIGN_IN',
+  SOCIAL_SIGN_IN = 'SOCIAL_SIGN_IN',
+  SOCIAL_SIGN_IN_RESULT = 'SOCIAL_SIGN_IN_RESULT',
   DEVICE_INFO = 'DEVICE_INFO',
   PUSH_NAVIGATION = 'PUSH_NAVIGATION',
   REPLACE_NAVIGATION = 'REPLACE_NAVIGATION',
@@ -27,4 +29,14 @@ export interface DeviceInfoPayload {
 
 export interface RoutePayload {
   url: string;
+}
+
+export interface SocialSignInPayload {
+  provider: SocialType;
+}
+
+export interface SocialSignInResultPayload {
+  provider: SocialType;
+  accessToken: string;
+  pId: string;
 }

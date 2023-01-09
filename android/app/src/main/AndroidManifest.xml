@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.starterapp">
+  package="com.starter.sogeun">
 
     <uses-permission android:name="android.permission.INTERNET" />
 

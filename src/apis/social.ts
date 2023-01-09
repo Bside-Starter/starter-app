@@ -11,10 +11,9 @@ export interface ISocialReturnProps {
   email: string | null;
 }
 
-export const googleLogin = async (): Promise<
+export const googleSignIn = async (): Promise<
   ISocialReturnProps | undefined
 > => {
-  await GoogleSignin.hasPlayServices();
   const googleAuthResult = await GoogleSignin.signIn();
   console.log('googleAuthResult: ', JSON.stringify(googleAuthResult));
 

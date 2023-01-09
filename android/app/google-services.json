@@ -7,18 +7,18 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1063325496850:android:5bd7ab099ac08f74de8acb",
+        "mobilesdk_app_id": "1:1063325496850:android:b6b5c5ede4eb54c6de8acb",
         "android_client_info": {
           "package_name": "com.starter.sogeun"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1063325496850-8mj9nh6evivng58h5ligg5qrqrq42rj2.apps.googleusercontent.com",
+          "client_id": "1063325496850-606lmgup7srplvdair6ir5lrhuvj01on.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.starter.sogeun",
-            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+            "certificate_hash": "b8f359e9ab7696484a9a8abe9e5b51495158d3fd"
           }
         },
         {

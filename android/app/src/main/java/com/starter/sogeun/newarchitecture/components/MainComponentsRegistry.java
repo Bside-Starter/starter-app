@@ -1,4 +1,4 @@
-package com.starterapp.newarchitecture.components;
+package com.starter.sogeun.newarchitecture.components;
 
 import com.facebook.jni.HybridData;
 import com.facebook.proguard.annotations.DoNotStrip;

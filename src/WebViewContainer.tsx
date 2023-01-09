@@ -11,13 +11,12 @@
 import React, {useRef, useState} from 'react';
 import {Image, Platform, StyleSheet, View} from 'react-native';
 import Config from 'react-native-config';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import WebView, {WebViewMessageEvent} from 'react-native-webview';
-import {AsyncKeys} from './constants';
 import {
-  AuthTokenPayload,
   DeviceInfoPayload,
   RoutePayload,
+  SocialSignInPayload,
+  SocialSignInResultPayload,
   WebViewMessageType,
 } from './types';
 import {parseWebMessage, sendMessage} from './utils';
@@ -28,6 +27,7 @@ import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../App';
 // @ts-ignore
 import TempBackground from './images/background_1.png';
+import {googleSignIn, SocialType} from './apis/social';
 
 const WebViewContainer = ({
   navigation,
@@ -37,6 +37,27 @@ const WebViewContainer = ({
   const path = route.params?.path;
 
   const [loading, setLoading] = useState(true);
+
+  // TODO: 옵셔널 처리
+  const handleSocialSignIn = async (
+    provider: SocialType,
+  ): Promise<SocialSignInResultPayload> => {
+    switch (provider) {
+      case 'google':
+        const result = await googleSignIn();
+        return {
+          provider,
+          pId: result?.pId || '',
+          accessToken: result?.accessToken || '',
+        };
+      default:
+        return {
+          pId: 'error',
+          accessToken: 'error',
+          provider: 'apple',
+        };
+    }
+  };
 
   const handleOnMessage = async (event: WebViewMessageEvent) => {
     const webData = event.nativeEvent.data;
@@ -56,24 +77,30 @@ const WebViewContainer = ({
       case WebViewMessageType.INITIALIZED:
         SplashScreen.hide();
         break;
-      case WebViewMessageType.SIGN_IN:
-        const {payload: authTokenPayload} =
-          parseWebMessage<AuthTokenPayload>(webData);
-        const {token} = authTokenPayload;
-        if (token) {
-          await AsyncStorage.setItem(AsyncKeys.AUTH_TOKEN, token);
-        }
-        break;
       case WebViewMessageType.PUSH_NAVIGATION:
         const pushPath = parseWebMessage<RoutePayload>(webData).payload.url;
         navigation.push('HOME', {path: pushPath});
         break;
       case WebViewMessageType.REPLACE_NAVIGATION:
         const replacePath = parseWebMessage<RoutePayload>(webData).payload.url;
+        console.log(`${Config.WEBVIEW_URL_IOS}${replacePath}`);
         navigation.replace('HOME', {path: replacePath});
         break;
-      case WebViewMessageType.REPLACE_NAVIGATION:
+      case WebViewMessageType.POP_NAVIGATION:
         navigation.goBack();
+        break;
+      case WebViewMessageType.SOCIAL_SIGN_IN:
+        const provider =
+          parseWebMessage<SocialSignInPayload>(webData).payload.provider;
+        const {pId, accessToken} = await handleSocialSignIn(provider);
+        sendMessage<SocialSignInResultPayload>(webviewRef, {
+          type: WebViewMessageType.SOCIAL_SIGN_IN_RESULT,
+          payload: {
+            pId,
+            provider,
+            accessToken,
+          },
+        });
         break;
       default:
         break;
