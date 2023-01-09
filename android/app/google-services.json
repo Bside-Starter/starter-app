@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "1063325496850",
+    "project_id": "sogeun-d8566",
+    "storage_bucket": "sogeun-d8566.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1063325496850:android:5bd7ab099ac08f74de8acb",
+        "android_client_info": {
+          "package_name": "com.starter.sogeun"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1063325496850-8mj9nh6evivng58h5ligg5qrqrq42rj2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.starter.sogeun",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "1063325496850-d1uvvdialbkt8ll82mj1qei4mvoqjui5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4bbMtQIugn5pCGl76LLc2nNAAxD19lMc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1063325496850-d1uvvdialbkt8ll82mj1qei4mvoqjui5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1063325496850-u4s2aku0j2o2iio1cm25f1dj6cpc2546.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.starter.sogeun"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
