@@ -27,7 +27,7 @@ import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../App';
 // @ts-ignore
 import TempBackground from './images/background_1.png';
-import {googleSignIn, SocialType} from './apis/social';
+import {googleSignIn, kakaoSignIn, SocialType} from './apis/social';
 
 const WebViewContainer = ({
   navigation,
@@ -44,11 +44,18 @@ const WebViewContainer = ({
   ): Promise<SocialSignInResultPayload> => {
     switch (provider) {
       case 'google':
-        const result = await googleSignIn();
+        const googleResult = await googleSignIn();
         return {
           provider,
-          pId: result?.pId || '',
-          accessToken: result?.accessToken || '',
+          pId: googleResult?.pId || '',
+          accessToken: googleResult?.accessToken || '',
+        };
+      case 'kakao':
+        const kakaoResult = await kakaoSignIn();
+        return {
+          provider,
+          pId: kakaoResult?.pId || '',
+          accessToken: kakaoResult?.accessToken || '',
         };
       default:
         return {

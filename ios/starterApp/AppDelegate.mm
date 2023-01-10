@@ -5,6 +5,7 @@
 #import <React/RCTRootView.h>
 #import "RNSplashScreen.h"
 #import <Firebase.h>
+#import <RNKakaoLogins.h>
 #import <React/RCTAppSetupUtils.h>
 
 #if RCT_NEW_ARCH_ENABLED
@@ -61,6 +62,16 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
   [FIRApp configure];
   [RNSplashScreen show];
   return YES;
+}
+
+- (BOOL)application:(UIApplication *)application
+     openURL:(NSURL *)url
+     options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+ if([RNKakaoLogins isKakaoTalkLoginUrl:url]) {
+    return [RNKakaoLogins handleOpenUrl: url];
+ }
+
+ return NO;
 }
 
 /// This method controls whether the `concurrentRoot`feature of React18 is turned on or off.

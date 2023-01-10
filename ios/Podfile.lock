@@ -1,4 +1,5 @@
 PODS:
+  - Alamofire (5.6.4)
   - AppAuth (1.6.0):
     - AppAuth/Core (= 1.6.0)
     - AppAuth/ExternalUserAgent (= 1.6.0)
@@ -126,6 +127,22 @@ PODS:
     - GTMSessionFetcher/Core (< 3.0, >= 1.5)
   - GTMSessionFetcher/Core (1.7.2)
   - hermes-engine (0.70.6)
+  - kakao-login (5.2.6):
+    - KakaoSDKAuth (= 2.11.1)
+    - KakaoSDKCommon (= 2.11.1)
+    - KakaoSDKUser (= 2.11.1)
+    - React
+  - KakaoSDKAuth (2.11.1):
+    - KakaoSDKCommon (= 2.11.1)
+  - KakaoSDKCommon (2.11.1):
+    - KakaoSDKCommon/Common (= 2.11.1)
+    - KakaoSDKCommon/Network (= 2.11.1)
+  - KakaoSDKCommon/Common (2.11.1)
+  - KakaoSDKCommon/Network (2.11.1):
+    - Alamofire (~> 5.1)
+    - KakaoSDKCommon/Common (= 2.11.1)
+  - KakaoSDKUser (2.11.1):
+    - KakaoSDKAuth (= 2.11.1)
   - libevent (2.1.12)
   - nanopb (2.30908.0):
     - nanopb/decode (= 2.30908.0)
@@ -492,6 +509,7 @@ DEPENDENCIES:
   - FlipperKit/SKIOSNetworkPlugin (= 0.125.0)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - hermes-engine (from `../node_modules/react-native/sdks/hermes/hermes-engine.podspec`)
+  - "kakao-login (from `../node_modules/@react-native-seoul/kakao-login`)"
   - libevent (~> 2.1.12)
   - OpenSSL-Universal (= 1.1.1100)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
@@ -538,6 +556,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - Alamofire
     - AppAuth
     - CocoaAsyncSocket
     - Firebase
@@ -559,6 +578,9 @@ SPEC REPOS:
     - GoogleUtilities
     - GTMAppAuth
     - GTMSessionFetcher
+    - KakaoSDKAuth
+    - KakaoSDKCommon
+    - KakaoSDKUser
     - libevent
     - nanopb
     - OpenSSL-Universal
@@ -579,6 +601,8 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
   hermes-engine:
     :podspec: "../node_modules/react-native/sdks/hermes/hermes-engine.podspec"
+  kakao-login:
+    :path: "../node_modules/@react-native-seoul/kakao-login"
   RCT-Folly:
     :podspec: "../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec"
   RCTRequired:
@@ -659,6 +683,7 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
+  Alamofire: 4e95d97098eacb88856099c4fc79b526a299e48c
   AppAuth: 8fca6b5563a5baef2c04bee27538025e4ceb2add
   boost: a7c83b31436843459a1961bfd74b96033dc77234
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
@@ -686,6 +711,10 @@ SPEC CHECKSUMS:
   GTMAppAuth: 0ff230db599948a9ad7470ca667337803b3fc4dd
   GTMSessionFetcher: 5595ec75acf5be50814f81e9189490412bad82ba
   hermes-engine: 2af7b7a59128f250adfd86f15aa1d5a2ecd39995
+  kakao-login: 2fbe3c549915276a44f7777036ee316e720f4738
+  KakaoSDKAuth: bb2dfa7be30daa8403c9cfc8001aa6fde7a5b779
+  KakaoSDKCommon: 555e1bb46595b842ded01cf7888cc17bbae4e113
+  KakaoSDKUser: 08c0a4f40bebdebdf948a9e3d0e44ed5c2754f99
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
