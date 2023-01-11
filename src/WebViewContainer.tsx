@@ -8,8 +8,15 @@
  * @format
  */
 
-import React, {useRef, useState} from 'react';
-import {Image, Platform, StyleSheet, View} from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
+import {
+  BackHandler,
+  Image,
+  Platform,
+  StatusBar,
+  StyleSheet,
+  View,
+} from 'react-native';
 import Config from 'react-native-config';
 import WebView, {WebViewMessageEvent} from 'react-native-webview';
 import {
@@ -129,7 +136,19 @@ const WebViewContainer = ({
   //   });
   // };
 
-  // StatusBar.setBarStyle('light-content');
+  StatusBar.setBarStyle('light-content');
+
+  useEffect(() => {
+    const handler = () => {
+      sendMessage(webviewRef, {
+        type: WebViewMessageType.GO_BACK,
+        payload: null,
+      });
+      return false;
+    };
+    BackHandler.addEventListener('hardwareBackPress', handler);
+    return () => BackHandler.removeEventListener('hardwareBackPress', handler);
+  }, [webviewRef]);
   return (
     <View style={styles.container}>
       <WebView
