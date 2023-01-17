@@ -48,7 +48,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>KAKAO_APP_KEY</key>
 	<string>bb6226c0c71821713971808028a79e7e</string>
 	<key>LSApplicationQueriesSchemes</key>

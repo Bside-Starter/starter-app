@@ -85,6 +85,7 @@ const WebViewContainer = ({
             statusBarHeight: getStatusBarHeight(true),
           },
         });
+        // setLoading(false);
         setTimeout(() => setLoading(false), 100);
         break;
       // 모든 웹 이니셜라이즈 동작이 끝난 후
@@ -102,6 +103,14 @@ const WebViewContainer = ({
         break;
       case WebViewMessageType.POP_NAVIGATION:
         navigation.goBack();
+        break;
+      case WebViewMessageType.CLEAR_NAVIGATION:
+        const newPath = parseWebMessage<RoutePayload>(webData).payload.url;
+        navigation.reset({
+          routes: [
+            {name: 'HOME', params: {path: newPath, disableAnimation: true}},
+          ],
+        });
         break;
       case WebViewMessageType.SOCIAL_SIGN_IN:
         const provider =
